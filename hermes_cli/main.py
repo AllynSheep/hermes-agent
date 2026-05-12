@@ -9844,6 +9844,10 @@ def main():
         "--workdir",
         help="Absolute path for the job to run from. Injects AGENTS.md / CLAUDE.md / .cursorrules from that directory and uses it as the cwd for terminal/file/code_exec tools. Omit to preserve old behaviour (no project context files).",
     )
+    cron_create.add_argument(
+        "--toolsets",
+        help="Comma-separated list of MCP toolsets to enable (e.g., 'web,terminal'). If not specified, uses default toolset configuration.",
+    )
 
     # cron edit
     cron_edit = cron_subparsers.add_parser(

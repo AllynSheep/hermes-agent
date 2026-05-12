@@ -163,6 +163,11 @@ def cron_status():
 
 
 def cron_create(args):
+    # Parse toolsets if provided
+    toolsets = getattr(args, "toolsets", None)
+    if toolsets:
+        toolsets = [t.strip() for t in toolsets.split(",") if t.strip()]
+    
     result = _cron_api(
         action="create",
         schedule=args.schedule,
@@ -175,6 +180,7 @@ def cron_create(args):
         script=getattr(args, "script", None),
         workdir=getattr(args, "workdir", None),
         no_agent=getattr(args, "no_agent", False) or None,
+        toolsets=toolsets,
     )
     if not result.get("success"):
         print(color(f"Failed to create job: {result.get('error', 'unknown error')}", Colors.RED))
